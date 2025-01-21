@@ -1,0 +1,121 @@
+# ~/.esscrc: executed by bash(1) for non-login shells.
+
+# added by nold0001@nate.com -- from
+#PS1="\u@\h: [\$PWD] \n[32mGood Job[0m > "
+#PS1="\u@\h: [\$PWD][32m [0m"
+###PS1='[$(p=${PWD/#"$HOME"/~};((${#p}>60))&&echo "${p::20}………${p:(-36)}"||echo "\w")] '
+PS1='[$(p=`pwd|sed 's@'"$HOME"'@~@'`;((${#p}>60))&&echo "${p::20}………${p:(-36)}"||echo "\w")] '
+
+export EDITOR=vi
+export BRONTO_PRODUCT_PREFIX="tems"
+export RUNTIME_HOME="${HOME}/${BRONTO_PRODUCT_PREFIX}/runtime"
+export RUNTIME_HOME_ARM="${HOME}/${BRONTO_PRODUCT_PREFIX}/runtime_arm"
+export RUNTIME_BIN="${RUNTIME_HOME}/bin"
+export RUNTIME_LIB="${RUNTIME_HOME}/lib"
+
+###PATH=~/Qt5.14.0/Tools/QtCreator/bin:$PATH
+###QTDIR=~/Qt5.14.0/5.14.0/gcc_64
+PATH=~/Qt/5.9.9/5.9.9/Tools/QtCreator/bin:$PATH
+QTDIR=/usr/share/qt5
+
+export TI_SDK_PATH="${HOME}/ti/ti-processor-sdk-linux-am65xx-evm-08_02_00_02"
+###export TI_SDK_LINUX_PATH="${TI_SDK_PATH}/linux-devkit/sysroots/x86_64-arago-linux"
+#####export TI_SDK_LINUX_PATH="${TI_SDK_PATH}/linux-devkit/sysroots/aarch64-linux"
+export TI_SDK_LINUX_PATH="${TI_SDK_PATH}/linux-devkit/sysroots/x86_64-arago-linux"
+export TI_SDK_LINUX_BIN_PATH="${TI_SDK_LINUX_PATH}/usr/bin"
+export PATH=".:${TI_SDK_LINUX_BIN_PATH}:${RUNTIME_HOME}/bin:${RUNTIME_HOME}/script:${PATH}:/sbin"
+export PATH_TO_TOOLCHAIN="${HOME}/ti"
+GCC92PATH="$HOME/ti/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu/bin:$HOME/ti/gcc-arm-9.2-2019.12-x86_64-arm-none-linux-gnueabihf/bin"
+export PATH="$GCC92PATH:$PATH"
+export RTOS_PATH="$HOME/ti/ti-processor-sdk-rtos-am65xx-evm-08_02_00_05"
+export PSDK_RTOS_PATH="$RTOS_PATH"
+#export PATH=/usr/lib/qt5/bin.:${TI_SDK_LINUX_BIN_PATH}:${RUNTIME_HOME}/bin:${RUNTIME_HOME}/script:${PATH}:/sbin
+
+#export RTOS_SDK_INSTALL_DIR="${HOME}/ti/ti-processor-sdk-rtos-am65xx-evm-06.01.00.08"
+#export TI_RTOS_PATH=${RTOS_SDK_INSTALL_DIR}
+#export RTOS_SDK_IPC_DIR="${TI_RTOS_PATH}/ipc_3_50_04_07"
+#export IPC_INSTALL_PATH=${RTOS_SDK_IPC_DIR}
+#export SDK_INSTALL_PATH=${RTOS_SDK_INSTALL_DIR}
+#export TOOLS_INSTALL_PATH=${RTOS_SDK_INSTALL_DIR}
+
+###export LD_LIBRARY_PATH="${RUNTIME_LIB}:${RUNTIME_LIB}/glpk:/usr/local/lib:${HOME}/Qt5.8.0/5.8/gcc_64/lib"
+export LD_LIBRARY_PATH="${RUNTIME_LIB}:${RUNTIME_LIB}/glpk:/usr/local/lib:${HOME}/Qt/5.14.2/gcc_64/lib"
+export MANPATH=$MANPATH:$RUNTIME_HOME/man
+
+export tmsg_portno=9300
+export BRONTO_NETWORK_INTERFACE=eth0
+
+#export LC_ALL=ko_KR.EUC-KR
+
+set filec
+set -o vi
+alias vi='vim'
+alias j='jobs'
+alias la='ls -al'
+alias sts='ps -efl | grep -v grep | grep '
+alias cp='cp -i'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cdrun="cd ${RUNTIME_HOME}"
+alias cdrunarm="cd ${RUNTIME_HOME_ARM}"
+alias cdbin="cd ${RUNTIME_HOME}/bin"
+alias cdlib="cd ${RUNTIME_HOME}/lib"
+alias cddata="cd ${RUNTIME_HOME}/data"
+alias cdevent="cd ${RUNTIME_HOME}/event"
+alias cdlog="cd ${RUNTIME_HOME}/log"
+alias cdlogt="cd ${RUNTIME_HOME}/log/`date +%Y/%m/%d`"
+alias cdcfg="cd ${RUNTIME_HOME}/cfg"
+alias cdscript="cd ${RUNTIME_HOME}/script"
+alias cdamass="cd ${RUNTIME_HOME}/amass"
+#alias tpool="luit -encoding $LANG ${BRONTO_PRODUCT_PREFIX}tpool"
+alias tpool="${BRONTO_PRODUCT_PREFIX}tpool"
+alias tstart="${BRONTO_PRODUCT_PREFIX} - start"
+alias tstop="${BRONTO_PRODUCT_PREFIX} - stop"
+alias tpss="${BRONTO_PRODUCT_PREFIX} - ps"
+alias tps="ps axo lstart,uname,pid,ppid,nlwp,%cpu,%mem,rsz,bsdtime,cmd | awk 'NR==1' ; ps axo lstart,uname,pid,ppid,nlwp,%cpu,%mem,rsz,bsdtime,cmd | awk 'NR>1' | grep -E ${BRONTO_PRODUCT_PREFIX}[a-zA-Z] | grep -v grep | grep -v 'vi ' | grep -v 'vim ' | grep -v 'tail ' | grep -v 'screensaver' | grep -v 'dnsmasq' | grep -v ' ps' ; ps axo lstart,uname,pid,ppid,nlwp,%cpu,%mem,rsz,bsdtime,cmd | awk 'NR>1' | grep -E HMI | grep -v grep | grep -v 'vi ' | grep -v 'vim ' | grep -v 'tail ' | grep -v ' ps'"
+
+alias findc='find . -name "*.c" | xargs grep -n --color=auto'
+alias findcpp='find . -name "*.cpp" | xargs grep -n --color=auto'
+alias findh='find . -name "*.h" | xargs grep -n --color=auto'
+
+alias ${BRONTO_PRODUCT_PREFIX}update='sudo chown root ${RUNTIME_BIN}/${BRONTO_PRODUCT_PREFIX}MBusMaster ${RUNTIME_BIN}/${BRONTO_PRODUCT_PREFIX}awatchdog ${RUNTIME_BIN}/${BRONTO_PRODUCT_PREFIX}DIOApp ; sudo chmod +s ${RUNTIME_BIN}/${BRONTO_PRODUCT_PREFIX}MBusMaster ${RUNTIME_BIN}/${BRONTO_PRODUCT_PREFIX}awatchdog ${RUNTIME_BIN}/${BRONTO_PRODUCT_PREFIX}DIOApp'
+alias mux='tmuxinator'
+alias tmux='tmux -2'	# for 256color
+
+export LS_COLORS="no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:*.rpm=01;31:ow=1;31"
+
+umask 0002
+#ulimit -c 1024
+#
+# mouse speed ( "xset r rate [delay_msec] [repeat_per_sec]" )
+#xset r rate 300 80
+
+export LC_ALL=ko_KR.utf8
+
+parse_git_branch()
+{
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+c_cyan=`tput setaf 6`
+c_red=`tput setaf 1`
+c_green=`tput setaf 2`
+c_sgr0=`tput sgr0`
+branch_color ()
+{
+   if git rev-parse --git-dir >/dev/null 2>&1
+   then
+      color=""
+      if git diff --quiet 2>/dev/null >&2
+      then
+         color="${c_green}"
+      else
+         color=${c_red}
+      fi
+   else
+      return 0
+   fi
+   echo -ne $color
+}
+export PS1='\e[01;32m\u@\h \[\e[34m\]\w\[${c_sgr0}\]\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]\$ '
+
+# added by nold0001@nate.com -- to
